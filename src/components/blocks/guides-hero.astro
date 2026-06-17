@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  heading?: string;
+  headingHighlight?: string;
+  body?: string[];
+  image?: string;
+  imageAlt?: string;
+}
+
+const {
+  heading = "Guides to Simplify",
+  headingHighlight = "Disability Parking Permits",
+  body = [],
+  image = "",
+  imageAlt = "",
+} = Astro.props;
+
+// Split heading around the highlight so we can colour it
+const headingParts = headingHighlight ? heading.split(headingHighlight) : [heading, ""];
+---
+
+<section class="w-full bg-[#0067FF] py-10 lg:py-16 xl:py-24 rounded-[24px] md:rounded-b-[40px]">
+  <div class="container">
+    <div class="grid  gap-6 lg:grid-cols-2 lg:items-center lg:gap-10 xl:gap-16">
+
+      <!-- ══════════ LEFT — white card ══════════ -->
+      <div class="w-full rounded-2xl bg-white p-6">
+
+        <h1 class="mb-4 text-2xl font-bold leading-tight text-[#00255C] sm:text-3xl lg:text-5xl 2xl:text-6xl">
+          {headingParts[0]}
+          {headingHighlight && (
+            <span class="text-[#0067FF]">{headingHighlight}</span>
+          )}
+          {headingParts[1]}
+        </h1>
+
+        <div class="space-y-4 text-[#363636] sm:text-lg md:text-xl xl:text-2xl">
+          {body.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+      </div>
+      <!-- ══════════ END LEFT ══════════ -->
+
+      <!-- ══════════ RIGHT — image ══════════ -->
+      <div class="flex w-full flex-1 items-center justify-center">
+        {image && (
+          <Image
+            src={image}
+            alt={imageAlt}
+            inferSize
+            loading="eager"
+            fetchpriority="high"
+            class="h-auto w-full max-w-[520px] rounded-2xl object-cover lg:max-w-full"
+          />
+        )}
+      </div>
+      <!-- ══════════ END RIGHT ══════════ -->
+
+    </div>
+  </div>
+</section>

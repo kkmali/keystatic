@@ -1,0 +1,115 @@
+---
+interface BannerConfig {
+  enable: boolean;
+  icon: string;
+  text: string;
+  badge: string;
+}
+
+interface ButtonConfig {
+  enable: boolean;
+  label: string;
+  link: string;
+}
+
+interface Props {
+  title: string;
+  content: string;
+  banner?: BannerConfig;
+  button?: ButtonConfig;
+}
+
+const { title, content, banner, button } = Astro.props;
+---
+
+<section class="py-24 lg:py-32 bg-background border-b border-border relative overflow-hidden">
+  {/* Radial glow */}
+  <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    
+    {/* Section Header */}
+    <div class="mx-auto max-w-3xl text-center mb-16">
+      <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <Fragment set:html={title} />
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
+        {content}
+      </p>
+    </div>
+
+    {/* Founding Member Card Promotion */}
+    <div class="mx-auto max-w-2xl rounded-2xl border border-primary/20 bg-linear-to-b from-primary/[0.03] to-transparent p-8 md:p-12 shadow-2xl relative">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center justify-center">
+        <span class="inline-flex items-center rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground uppercase tracking-widest shadow-md">
+          Special Founding Offer
+        </span>
+      </div>
+
+      {/* Banner message if enabled */}
+      {banner && banner.enable && (
+        <div class="flex items-start gap-4 rounded-xl bg-primary/10 border border-primary/20 p-4 mb-8">
+          <span class="text-2xl shrink-0 mt-0.5">{banner.icon}</span>
+          <div>
+            <span class="inline-flex items-center rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-bold text-primary tracking-wide uppercase mb-1">
+              {banner.badge}
+            </span>
+            <p class="text-sm font-medium text-foreground">
+              {banner.text}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Value Inclusions list */}
+      <div class="space-y-6">
+        <h3 class="font-display text-2xl font-bold text-foreground text-center">
+          Lock in Founding Member Benefits Forever
+        </h3>
+        
+        <ul class="grid gap-4 sm:grid-cols-2 text-sm text-muted-foreground mt-6">
+          <li class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Unlimited documents & proposals</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Full AI content generation suite</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Engagement tracking & metrics</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="h-5 w-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Unlimited built-in E-Signatures</span>
+          </li>
+        </ul>
+
+        {/* CTA Button */}
+        {button && button.enable && (
+          <div class="pt-6 flex flex-col items-center gap-2">
+            <a
+              href={button.link}
+              class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 text-base font-bold text-primary-foreground shadow-md transition-all hover:bg-primary/95 hover:scale-[1.02] text-center"
+            >
+              {button.label}
+            </a>
+            <span class="text-xs text-muted-foreground mt-2">
+              Only 100 spots remaining. Cancel anytime.
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+
+  </div>
+</section>

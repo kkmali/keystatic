@@ -1,0 +1,70 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  subheading?: string;
+  steps: Step[];
+}
+
+const {
+  eyebrow = "How It Works",
+  heading = "Three Simple Steps",
+  subheading = "Get your IRS-compliant physician certification delivered same-day",
+  steps = [],
+} = Astro.props;
+---
+
+<section class="w-full bg-white py-10 lg:py-16 xl:py-24">
+  <div class="container">
+
+    <!-- Header block -->
+    <div class="mb-10 md:mb-12 flex flex-col items-center text-center lg:mb-16">
+      {eyebrow && (
+        <p class="mb-3 text-base font-bold uppercase text-[#0067FF] sm:text-lg">
+          {eyebrow}
+        </p>
+      )}
+      {heading && (
+        <h2 class="mb-4 text-2xl font-bold text-[#00255C] sm:text-3xl lg:text-5xl xl:text-6xl">
+          {heading}
+        </h2>
+      )}
+      {subheading && (
+        <p class="text-base text-[#363636] sm:text-lg lg:text-2xl">
+          {subheading}
+        </p>
+      )}
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:gap-12">
+      {steps.map((step) => (
+        <div class="relative flex flex-col items-center overflow-hidden rounded-4xl md:rounded-[24px] bg-white p-4 sm:p-6 xl:p-9 text-center shadow-[0_16px_16px_-8px_#0c0c0d1a] border-t-4 border-t-[#0067FF] gap-3 md:gap-6">
+
+          <!-- Step number circle -->
+          <div class="flex size-8 md:size-11 items-center justify-center rounded-full bg-[#0067FF] text-base xl:text-2xl font-bold text-white shadow-md">
+            {step.number}
+          </div>
+
+          <!-- Step title -->
+          <h3 class="text-lg font-semibold text-[#0067FF] sm:text-2xl xl:text-3xl max-w-63">
+            {step.title}
+          </h3>
+
+          <!-- Step description -->
+          <p class="text-base text-[#00255c] md:text-lg xl:text-xl">
+            {step.description}
+          </p>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

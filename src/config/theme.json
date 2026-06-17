@@ -1,0 +1,31 @@
+{
+  "colors": {
+    "default": {
+      "theme_color": {
+        "primary": "oklch(0.92 0.04 86.47)",
+        "secondary": "oklch(0.97 0 0)",
+        "tertiary": "oklch(0.922 0 0)",
+        "body": "oklch(1 0 0)",
+        "border": "oklch(0.922 0 0)",
+        "light": "oklch(0.97 0 0)"
+      },
+      "text_color": {
+        "text": "oklch(0.145 0 0)",
+        "text-dark": "oklch(0.145 0 0)",
+        "text-light": "oklch(0.985 0 0)"
+      }
+    }
+  },
+  "fonts": {
+    "font_family": {
+      "primary": "DM Sans",
+      "primary_type": "sans-serif",
+      "secondary": "inter",
+      "secondary_type": "sans-serif"
+    },
+    "font_size": {
+      "base": "16",
+      "scale": "1.262"
+    }
+  }
+}

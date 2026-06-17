@@ -1,0 +1,72 @@
+---
+interface IntegrationItem {
+  image: string;
+  alt: string;
+}
+
+interface ButtonConfig {
+  enable: boolean;
+  label: string;
+  link: string;
+}
+
+interface Props {
+  title: string;
+  content: string;
+  items: IntegrationItem[];
+  button?: ButtonConfig;
+}
+
+const { title, content, items, button } = Astro.props;
+---
+
+<section class="py-24 lg:py-32 bg-muted/30 border-b border-border relative overflow-hidden">
+  <div class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-primary/5 blur-3xl"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid gap-12 lg:grid-cols-5 lg:gap-16 items-center max-w-6xl mx-auto">
+      
+      {/* Text Info Left */}
+      <div class="lg:col-span-2 space-y-6 text-center lg:text-left">
+        <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <Fragment set:html={title} />
+        </h2>
+        <p class="text-lg text-muted-foreground leading-relaxed">
+          {content}
+        </p>
+
+        {button && button.enable && (
+          <div class="pt-2">
+            <a
+              href={button.link}
+              class="inline-flex items-center justify-center rounded-lg border border-input bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-xs transition-all hover:bg-accent hover:text-accent-foreground hover:scale-[1.01]"
+            >
+              {button.label}
+            </a>
+          </div>
+        )}
+      </div>
+
+      {/* Integration Logos Grid Right */}
+      <div class="lg:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-6">
+        {items && items.map((item) => (
+          <div class="group flex h-24 items-center justify-center rounded-xl border border-border/80 bg-card p-6 shadow-2xs transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:scale-[1.02] cursor-pointer">
+            {/* If there's an image, render it, else fallback to text */}
+            {item.image ? (
+              <img
+                src={item.image}
+                alt={item.alt}
+                class="max-h-10 max-w-[80%] opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+              />
+            ) : (
+              <span class="font-display font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                {item.alt}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+---
+import { Icon } from '@/components/Icon';
+
+interface StatItem {
+  role: string;
+  icon: string;
+  tagline: string;
+  description: string;
+}
+
+interface Props {
+  title: string;
+  items: StatItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="py-24 lg:py-32 bg-background border-b border-border relative">
+  {/* Left & Right gradient borders */}
+  <div class="pointer-events-none absolute left-0 top-1/4 h-[300px] w-1 bg-linear-to-b from-primary/30 to-transparent"></div>
+
+  <div class="container mx-auto px-4">
+    
+    {/* Section Header */}
+    <div class="mx-auto max-w-3xl text-center mb-16">
+      <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <Fragment set:html={title} />
+      </h2>
+    </div>
+
+    {/* Roles/Personas Grid */}
+    <div class="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+      {items && items.map((item) => (
+        <div class="group relative overflow-hidden rounded-2xl border border-border/80 bg-card p-8 shadow-xs transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:scale-[1.005]">
+          <div class="flex items-start gap-4">
+            
+            {/* Persona Icon Circle */}
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+              <Icon name={item.icon} client:only="react" className="size-6" />
+            </div>
+
+            {/* Persona Content */}
+            <div class="space-y-3">
+              {/* Role Badge */}
+              <span class="inline-flex items-center rounded-md bg-secondary text-secondary-foreground px-2.5 py-0.5 text-xs font-semibold">
+                {item.role}
+              </span>
+
+              {/* Tagline */}
+              <h3 class="font-display text-xl font-bold text-foreground leading-snug group-hover:text-primary transition-colors">
+                {item.tagline}
+              </h3>
+
+              {/* Description */}
+              <p class="text-sm text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

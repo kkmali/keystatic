@@ -1,0 +1,86 @@
+---
+interface ButtonConfig {
+  enable: boolean;
+  label: string;
+  link: string;
+}
+
+interface Props {
+  title: string;
+  content: string;
+  button_primary?: ButtonConfig;
+  button_secondary?: ButtonConfig;
+  show_video?: boolean;
+}
+
+const { title, content, button_primary, button_secondary, show_video } = Astro.props;
+---
+
+<section class="relative overflow-hidden py-24 lg:py-32 bg-radial from-background via-background to-muted/30 border-b border-border">
+  {/* Background decorative blobs */}
+  <div class="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-primary/5 blur-3xl"></div>
+  <div class="pointer-events-none absolute -right-20 top-20 h-80 w-80 rounded-full bg-primary/10 blur-3xl"></div>
+
+  <div class="container relative z-10 mx-auto px-4">
+    <div class="mx-auto max-w-4xl text-center">
+      
+      {/* Title */}
+      <h1 class="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-tight">
+        <Fragment set:html={title} />
+      </h1>
+
+      {/* Description Content */}
+      <p class="mx-auto mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed">
+        {content}
+      </p>
+
+      {/* Buttons */}
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        {button_primary && button_primary.enable && (
+          <a
+            href={button_primary.link}
+            class="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/95 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            {button_primary.label}
+          </a>
+        )}
+
+        {button_secondary && button_secondary.enable && (
+          <a
+            href={button_secondary.link}
+            class="inline-flex items-center justify-center rounded-lg border border-input bg-background px-6 py-3 text-base font-semibold text-foreground shadow-xs transition-all hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            {button_secondary.label}
+          </a>
+        )}
+      </div>
+
+      {/* Optional Video Player Mockup */}
+      {show_video && (
+        <div class="relative mx-auto mt-16 max-w-4xl rounded-2xl border border-border/60 bg-card/50 p-2 shadow-2xl backdrop-blur-md">
+          <div class="relative aspect-video overflow-hidden rounded-xl border border-border/80 bg-muted shadow-inner group cursor-pointer">
+            {/* Overlay Gradient */}
+            <div class="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-black/10 transition-opacity group-hover:opacity-80"></div>
+            
+            {/* Play Button */}
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform group-hover:scale-110 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8 ml-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653Z" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Video Thumbnail Image */}
+            <img
+              src="/hero.webp"
+              alt="Video presentation thumbnail"
+              class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.01]"
+            />
+          </div>
+        </div>
+      )}
+
+    </div>
+  </div>
+</section>

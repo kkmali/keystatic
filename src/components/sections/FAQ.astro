@@ -1,0 +1,9 @@
+---
+import { FAQ as ReactFAQ } from '@/components/blocks/faq';
+
+interface Props {
+  enable?: boolean;
+}
+---
+
+<ReactFAQ client:only="react" />

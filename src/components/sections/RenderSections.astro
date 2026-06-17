@@ -1,0 +1,298 @@
+---
+import { Background } from '@/components/background';
+import { Hero } from '@/components/blocks/hero';
+import { Logos } from '@/components/blocks/logos';
+import { Features } from '@/components/blocks/features';
+import { ResourceAllocation } from '@/components/blocks/resource-allocation';
+import { Testimonials } from '@/components/blocks/testimonials';
+import { Pricing } from '@/components/blocks/pricing';
+import { FAQ } from '@/components/blocks/faq';
+
+// Custom proposal sections
+import Banner from './Banner.astro';
+import ValueProps from './ValueProps.astro';
+import GrowthProcess from './GrowthProcess.astro';
+import StatsGrid from './StatsGrid.astro';
+import BusinessNeeds from './BusinessNeeds.astro';
+import OurFeatures from './OurFeatures.astro';
+import ComparisonRow from './ComparisonRow.astro';
+import Integrations from './Integrations.astro';
+import PricingSection from './Pricing.astro';
+import FAQSection from './FAQ.astro';
+import PageCTA from './PageCTA.astro';
+
+// New original template blocks
+import { AboutHero } from '@/components/blocks/about-hero';
+import { AboutSection } from '@/components/blocks/about-section';
+import { Investors } from '@/components/blocks/investors';
+import { Contact } from '@/components/blocks/contact';
+import LoginSection from '@/components/blocks/login-section';
+import SignupSection from '@/components/blocks/signup-section';
+import { PricingTable } from '@/components/blocks/pricing-table';
+import { DashedLine } from '@/components/dashed-line';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+interface Props {
+  sections: any[];
+}
+
+const { sections = [] } = Astro.props;
+
+// Filter out disabled sections
+const activeSections = sections.filter((s) => s.enable !== false);
+
+// Identify groupings
+const hasHomeTop = activeSections.some((s) =>
+  ['hero', 'logos', 'features', 'resource_allocation'].includes(s.type)
+);
+const hasHomeTestimonials = activeSections.some((s) => s.type === 'testimonials') && hasHomeTop;
+const hasHomeBottom = activeSections.some((s) =>
+  ['pricing', 'faq'].includes(s.type)
+) && hasHomeTop;
+
+const hasAbout = activeSections.some((s) =>
+  ['about_hero', 'about_section', 'investors'].includes(s.type)
+);
+
+const hasPricingPage = activeSections.some((s) =>
+  ['pricing', 'pricing_table'].includes(s.type)
+) && !hasHomeTop;
+
+const hasFAQPage = activeSections.some((s) =>
+  ['faq', 'testimonials'].includes(s.type)
+) && !hasHomeTop;
+
+const hasContact = activeSections.some((s) => s.type === 'contact');
+const hasLogin = activeSections.some((s) => s.type === 'login');
+const hasSignup = activeSections.some((s) => s.type === 'signup');
+const hasNotFound = activeSections.some((s) => s.type === 'not_found');
+
+// Check if this config contains any original template types
+const originalTypes = [
+  'hero',
+  'logos',
+  'features',
+  'resource_allocation',
+  'testimonials',
+  'pricing',
+  'faq',
+  'about_hero',
+  'about_section',
+  'investors',
+  'contact',
+  'login',
+  'signup',
+  'pricing_table',
+  'not_found'
+];
+
+const isOriginalTemplate = activeSections.some((s) =>
+  originalTypes.includes(s.type)
+);
+---
+
+{
+  isOriginalTemplate ? (
+    <>
+      {/* Home Page Top Group */}
+      {hasHomeTop && (
+        <Background className="via-muted to-muted/80">
+          {activeSections.map((section) => {
+            if (section.type === 'hero') return <Hero {...section} />;
+            if (section.type === 'logos') return <Logos client:only="react" {...section} />;
+            if (section.type === 'features') return <Features {...section} />;
+            if (section.type === 'resource_allocation') return <ResourceAllocation {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* Home Page Testimonials */}
+      {hasHomeTestimonials && (
+        activeSections.map((section) => {
+          if (section.type === 'testimonials') return <Testimonials client:visible {...section} />;
+          return null;
+        })
+      )}
+
+      {/* Home Page Bottom Group */}
+      {hasHomeBottom && (
+        <Background variant="bottom">
+          {activeSections.map((section) => {
+            if (section.type === 'pricing') return <Pricing client:visible {...section} />;
+            if (section.type === 'faq') return <FAQ client:only="react" {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* About Page Group */}
+      {hasAbout && (
+        <Background>
+          <div class="py-28 lg:py-32 lg:pt-44">
+            {activeSections.map((section) => {
+              if (section.type === 'about_hero') return <AboutHero {...section} />;
+              if (section.type === 'about_section') return <AboutSection {...section} />;
+              if (section.type === 'investors') return (
+                <div class="pt-28 lg:pt-32">
+                  <DashedLine className="container max-w-5xl scale-x-115" />
+                  <Investors {...section} />
+                </div>
+              );
+              return null;
+            })}
+          </div>
+        </Background>
+      )}
+
+      {/* Pricing Page Group */}
+      {hasPricingPage && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'pricing') return <Pricing client:only="react" className="py-28 text-center lg:pt-44 lg:pb-32" {...section} />;
+            if (section.type === 'pricing_table') return <PricingTable {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* FAQ Page Group */}
+      {hasFAQPage && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'faq') return (
+              <FAQ
+                client:only="react"
+                className="py-28 text-center lg:pt-44 lg:pb-32"
+                className2="max-w-xl lg:grid-cols-1"
+                headerTag="h1"
+                {...section}
+              />
+            );
+            if (section.type === 'testimonials') return (
+              <>
+                <DashedLine className="mx-auto max-w-xl" />
+                <Testimonials dashedLineClassName="hidden" client:only="react" {...section} />
+              </>
+            );
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* Contact Page */}
+      {hasContact && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'contact') return <Contact {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* Login Page */}
+      {hasLogin && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'login') return <LoginSection {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* Signup Page */}
+      {hasSignup && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'signup') return <SignupSection {...section} />;
+            return null;
+          })}
+        </Background>
+      )}
+
+      {/* 404 Not Found Page */}
+      {hasNotFound && (
+        <Background>
+          {activeSections.map((section) => {
+            if (section.type === 'not_found') {
+              const {
+                title = "Page Not Found",
+                description = "Sorry, we couldn't find the page you're looking for. The page might have been removed or the URL might be incorrect.",
+                button_primary = { label: "Back to Home", link: "/" },
+                button_secondary = { label: "Contact Support", link: "/contact" }
+              } = section;
+
+              return (
+                <div class="container flex min-h-[70vh] flex-col items-center justify-center py-28 text-center lg:min-h-[80vh] lg:py-32">
+                  <div class="relative z-10 max-w-2xl">
+                    <h1 class="from-foreground to-foreground/70 relative mb-6 bg-linear-to-br bg-clip-text py-2 text-5xl font-bold text-transparent sm:text-6xl lg:text-7xl">
+                      {title}
+                    </h1>
+
+                    <p class="text-muted-foreground mb-10 text-xl">
+                      {description}
+                    </p>
+
+                    <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                      {button_primary && (
+                        <a href={button_primary.link}>
+                          <Button size="lg" className="group min-w-[200px] gap-2">
+                            <ArrowLeft className="size-5 transition-transform group-hover:-translate-x-1" />
+                            {button_primary.label}
+                          </Button>
+                        </a>
+                      )}
+                      {button_secondary && (
+                        <a href={button_secondary.link}>
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className="min-w-[200px]"
+                          >
+                            {button_secondary.label}
+                          </Button>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </Background>
+      )}
+    </>
+  ) : (
+    activeSections.map((section) => {
+      switch (section.type) {
+        case 'banner':
+          return <Banner {...section} />;
+        case 'value_props':
+          return <ValueProps {...section} />;
+        case 'growth_process':
+          return <GrowthProcess {...section} />;
+        case 'stats_grid':
+          return <StatsGrid {...section} />;
+        case 'business_needs':
+          return <BusinessNeeds {...section} />;
+        case 'our_features':
+          return <OurFeatures {...section} />;
+        case 'comparison_row':
+          return <ComparisonRow {...section} />;
+        case 'integrations':
+          return <Integrations {...section} />;
+        case 'pricing':
+          return <PricingSection {...section} />;
+        case 'faq':
+          return <FAQSection {...section} />;
+        case 'page_cta':
+          return <PageCTA {...section} />;
+        default:
+          return null;
+      }
+    })
+  )
+}
+

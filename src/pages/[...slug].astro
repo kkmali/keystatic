@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+import RenderSections from '@/components/sections/RenderSections.astro';
+
+export async function getStaticPaths() {
+	const pages = await getCollection('pages');
+	return pages
+		.filter((page) => page.id !== '404' && (!page.data?.draft || import.meta.env.DEV))
+		.map((page) => {
+			const slug = page.id === 'index' ? undefined : page.id;
+			return {
+				params: { slug },
+				props: { page },
+			};
+		});
+}
+
+const { page } = Astro.props;
+const { title, description, sections } = page.data || {};
+const { Content } = await render(page);
+---
+
+{
+	sections && sections.length > 0 ? (
+		<DefaultLayout title={title} description={description}>
+			<RenderSections sections={sections} />
+		</DefaultLayout>
+	) : (
+		<Content />
+	)
+}
+

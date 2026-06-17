@@ -1,0 +1,203 @@
+---
+import { Image } from 'astro:assets';
+import avatar1 from '/public/avatar/avatar1.png';
+import avatar2 from '/public/avatar/avatar2.png';
+
+interface Bullet {
+  text: string;
+  bold?: string;
+}
+
+interface Rating {
+  score?: number;
+  label?: string;
+  reviewCount?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  headingHighlight?: string;
+  subheading?: string;
+  image?: string;
+  imageAlt?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaNote?: string;
+  infoNote?: string;
+  rating?: Rating;
+  bullets?: Bullet[];
+}
+
+const {
+  eyebrow = "Fast, easy, and affordable",
+  heading = "Get Your Schedule R Tax Credit Certificate Online Today",
+  headingHighlight = "Schedule R",
+  subheading = "We provide the physician-signed IRS forms <strong>required</strong> for your disability tax credit.",
+  image = "https://parkingmd.com/wp-content/uploads/tax-credit-hero-image.png",
+  imageAlt = "Person using laptop for Schedule R tax credit application",
+  ctaLabel = "See if I Qualify",
+  ctaHref = "https://patient.parkingmd.com/get-started",
+  ctaNote = "*Approved or your money back",
+  infoNote = "",
+  rating,
+  bullets = [],
+} = Astro.props;
+
+// Split heading around the highlight word so we can colour it
+const headingParts = headingHighlight
+  ? heading.split(headingHighlight)
+  : [heading, ""];
+
+// Full stars count (floor of score)
+const fullStars = rating?.score ? Math.floor(rating.score) : 0;
+const hasHalf = rating?.score ? rating.score % 1 >= 0.5 : false;
+---
+
+<section class="w-full bg-[#EBF3FF] pb-10 pt-20 lg:pb-24 lg:pt-36">
+  <div class="container">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12 xl:gap-16">
+
+      <!-- ══════════════ LEFT COLUMN ══════════════ -->
+      <div class="flex w-full flex-col lg:max-w-[520px] xl:max-w-[560px]">
+
+        <!-- Eyebrow -->
+        {eyebrow && (
+          <p class="mb-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wide text-[#0067FF] text-center lg:text-left lg:text-base">
+            {eyebrow}
+          </p>
+        )}
+
+        <!-- H1 -->
+        <h1 class="mb-3 text-[1.75rem] font-bold leading-[1.2] tracking-tight text-[#00255C] text-center sm:text-[2rem] lg:text-left lg:text-[2.6rem] xl:text-[3rem]">
+          {headingParts[0]}<span class="text-[#0067FF]">{headingHighlight}</span>{headingParts[1]}
+        </h1>
+
+        <!-- Subheading -->
+        {subheading && (
+          <p class="mb-4 text-base text-[#00255C] text-center lg:text-left lg:text-xl" set:html={subheading} />
+        )}
+
+        <!-- Bullet list -->
+        {bullets.length > 0 && (
+          <ul class="mb-4 space-y-2">
+            {bullets.map((bullet) => (
+              <li class="flex items-start gap-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mt-[3px] size-[17px] shrink-0 text-[#0067FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span class="text-sm sm:text-base text-[#00255C] lg:text-xl">
+                  {bullet.bold && <strong class="font-semibold">{bullet.bold}</strong>}
+                  {bullet.bold ? " – " : ""}{bullet.text}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <!-- Star rating row -->
+        {rating && (
+          <div class="mb-4 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 lg:justify-start">
+            {Array.from({ length: fullStars }).map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#FFCC00" stroke="#FFCC00" stroke-width="1" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            ))}
+            {hasHalf && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <defs>
+                  <linearGradient id="half-grad">
+                    <stop offset="50%" stop-color="#FFCC00"/>
+                    <stop offset="50%" stop-color="transparent"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-grad)" stroke="#FFCC00" stroke-width="1"/>
+              </svg>
+            )}
+
+            {rating.label && (
+              <span class="ml-1 text-xs sm:text-sm font-medium text-[#00255C] lg:text-base">
+                {rating.label}
+              </span>
+            )}
+
+            <!-- Avatar group — local images via astro:assets -->
+            <div class="ml-1 flex -space-x-2">
+              <Image
+                src={avatar1}
+                alt="reviewer"
+                width={26}
+                height={26}
+                class="size-[26px] rounded-full border-2 border-white object-cover"
+              />
+              <Image
+                src={avatar2}
+                alt="reviewer"
+                width={26}
+                height={26}
+                class="size-[26px] rounded-full border-2 border-white object-cover"
+              />
+              <Image
+                src={avatar2}
+                alt="reviewer"
+                width={26}
+                height={26}
+                class="size-[26px] rounded-full border-2 border-white object-cover"
+              />
+            </div>
+
+            {rating.reviewCount && (
+              <span class="text-xs sm:text-sm font-medium text-[#00255C] lg:text-base">
+                {rating.reviewCount}
+              </span>
+            )}
+          </div>
+        )}
+
+        <!-- CTA button -->
+        <div class="mb-5 flex flex-col items-stretch gap-2">
+          <a
+            href={ctaHref}
+            class="flex w-full items-center text-[#00255C] justify-center rounded-full bg-[#0de8fc] px-4 md:px-8 py-3 md:py-4 text-base md:text-xl font-bold shadow-md transition-all duration-200 hover:bg-[#00AADF] focus-visible:outline-none"
+          >
+            {ctaLabel}
+          </a>
+          {ctaNote && (
+            <p class="text-center font-extrabold text-[#363636] text-base">{ctaNote}</p>
+          )}
+        </div>
+
+        <!-- Info note -->
+        {infoNote && (
+          <div class="flex items-start gap-2.5 border-t border-[#CBD5E1] pt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 size-[15px] shrink-0 text-[#00255C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <p class="text-sm leading-relaxed text-[#00255C]" set:html={infoNote.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')} />
+          </div>
+        )}
+
+      </div>
+      <!-- ══════════════ END LEFT COLUMN ══════════════ -->
+
+      <!-- ══════════════ RIGHT COLUMN — remote image via astro:assets ══════════════ -->
+      <div class="relative flex w-full flex-1 items-center justify-center">
+        {image && (
+          <Image
+            src={image}
+            alt={imageAlt}
+            inferSize
+            loading="eager"
+            fetchpriority="high"
+            class="h-auto w-full max-w-[480px] rounded-2xl object-contain sm:max-w-[520px] lg:max-w-full"
+          />
+        )}
+      </div>
+      <!-- ══════════════ END RIGHT COLUMN ══════════════ -->
+
+    </div>
+  </div>
+</section>

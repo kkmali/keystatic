@@ -1,0 +1,87 @@
+---
+import { Icon } from '@/components/Icon';
+
+interface FeatureItem {
+  logo: string;
+  title: string;
+  description: string;
+  is_starred?: boolean;
+}
+
+interface Props {
+  title: string;
+  content: string;
+  columns?: number;
+  items: FeatureItem[];
+}
+
+const { title, content, columns = 3, items } = Astro.props;
+
+// Determine grid column counts based on props
+const colsMap: Record<number, string> = {
+  1: 'lg:grid-cols-1',
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+};
+const gridColsClass = colsMap[columns] || 'lg:grid-cols-3';
+---
+
+<section class="py-24 lg:py-32 bg-background border-b border-border relative">
+  <div class="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl"></div>
+
+  <div class="container mx-auto px-4">
+    
+    {/* Section Header */}
+    <div class="mx-auto max-w-3xl text-center mb-16">
+      <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <Fragment set:html={title} />
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
+        {content}
+      </p>
+    </div>
+
+    {/* Features Grid */}
+    <div class={`grid gap-6 md:grid-cols-2 ${gridColsClass} max-w-6xl mx-auto`}>
+      {items && items.map((item) => {
+        const isStarred = item.is_starred;
+        return (
+          <div class={`group relative overflow-hidden rounded-xl border p-6 shadow-2xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+            isStarred 
+              ? 'border-primary/30 bg-card hover:border-primary' 
+              : 'border-border/80 bg-card/60 hover:border-border-hover'
+          }`}>
+            {isStarred && (
+              <div class="absolute right-3 top-3 flex items-center justify-center">
+                <span class="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold text-primary tracking-wide uppercase">
+                  Popular
+                </span>
+              </div>
+            )}
+
+            <div class="flex items-start gap-4">
+              {/* Feature Icon */}
+              <div class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+                isStarred ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground group-hover:text-primary group-hover:bg-primary/10'
+              } transition-colors duration-300`}>
+                <Icon name={item.logo} client:only="react" className="size-5" />
+              </div>
+
+              {/* Text Info */}
+              <div class="space-y-1">
+                <h3 class="font-display font-semibold text-base text-foreground group-hover:text-primary transition-colors">
+                  {item.title}
+                </h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,14 @@
+---
+layout: ../../layouts/DefaultLayout.astro
+title: Guides to Simplify Disability Parking Permits | ParkingMD
+description: Step-by-step guides to help you apply for, renew, and understand disability parking permits and state regulations.
+---
+import { getEntry } from 'astro:content';
+import GuidesHero from '@/components/blocks/guides-hero.astro';
+import WhyGuides from '@/components/blocks/why-guides.astro';
+
+export const guidesHeroEntry = await getEntry('guidesHero', 'index');
+export const whyGuidesEntry  = await getEntry('whyGuides',  'index');
+
+<GuidesHero {...guidesHeroEntry?.data} />
+<WhyGuides {...whyGuidesEntry?.data} />

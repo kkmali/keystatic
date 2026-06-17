@@ -1,0 +1,14 @@
+{
+  "main": [
+    {
+      "name": "Xwitter",
+      "icon": "FaXTwitter",
+      "link": "https://x.com/ausrobdev"
+    },
+    {
+      "name": "LinkedIn",
+      "icon": "FaLinkedin",
+      "link": "#"
+    }
+  ]
+}

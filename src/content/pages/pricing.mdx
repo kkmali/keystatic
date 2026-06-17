@@ -1,0 +1,44 @@
+---
+layout: ../../layouts/DefaultLayout.astro
+title: Pricing
+description: Choose the plan that is right for you.
+draft: false
+
+sections:
+  - type: pricing
+    enable: true
+    title: Pricing
+    description: "Use Mainline for free with your whole team. Upgrade to enable unlimited issues, enhanced security controls, and additional features."
+    plans:
+      - name: Free
+        monthlyPrice: "$0"
+        yearlyPrice: "$0"
+        description: Free for everyone
+        features:
+          - Unlimited members
+          - 2 teams
+          - 500 issues
+          - Slack and Github integrations
+      - name: Startup
+        monthlyPrice: "$8"
+        yearlyPrice: "$6"
+        features:
+          - All free plan features and...
+          - Mainline AI
+          - Unlimited teams
+          - Unlimited issues and file uploads
+          - Mainline Insights
+          - Admin roles
+      - name: Enterprise
+        monthlyPrice: "$8"
+        yearlyPrice: "$6"
+        features:
+          - All free plan features and...
+          - Mainline AI
+          - Supermainline AGI
+          - Free daily catered lunch
+          - random HIPPA audits
+
+  - type: pricing_table
+    enable: true
+---

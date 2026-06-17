@@ -1,0 +1,124 @@
+---
+interface Props {
+  enable?: boolean;
+}
+
+const comparisonData = [
+  {
+    feature: "Document Drafting Time",
+    proposalBiz: "60 Seconds (AI Auto-write)",
+    traditional: "2–4 Hours (Template Copy-paste)",
+    competitors: "30–60 Minutes (Manual Editing)",
+    highlight: true,
+  },
+  {
+    feature: "Brand Ingestion",
+    proposalBiz: "Instant (Paste URL)",
+    traditional: "Manual Color Picking",
+    competitors: "Upload logo manually",
+    highlight: false,
+  },
+  {
+    feature: "Built-in E-Signatures",
+    proposalBiz: "Included (Unlimited)",
+    traditional: "Requires third-party tool",
+    competitors: "Additional upgrade required",
+    highlight: false,
+  },
+  {
+    feature: "Document Analytics",
+    proposalBiz: "Yes (Opens & Section tracking)",
+    traditional: "No (Blank email wait)",
+    competitors: "Basic open notifications only",
+    highlight: false,
+  },
+  {
+    feature: "Real-time Collaboration",
+    proposalBiz: "Yes (Shared inline doc editor)",
+    traditional: "No (Version v4_FINAL.docx)",
+    competitors: "Comment threads only",
+    highlight: false,
+  },
+];
+---
+
+<section class="py-24 lg:py-32 bg-background border-b border-border relative">
+  <div class="pointer-events-none absolute left-10 top-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl"></div>
+
+  <div class="container mx-auto px-4">
+    
+    {/* Section Header */}
+    <div class="mx-auto max-w-3xl text-center mb-16">
+      <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        How does <strong>Proposal.biz</strong> stack up?
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
+        Why modern revenue teams are leaving traditional word processors and legacy builders behind.
+      </p>
+    </div>
+
+    {/* Table Container */}
+    <div class="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border/80 bg-card/50 shadow-xl backdrop-blur-md">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-left">
+          
+          {/* Table Head */}
+          <thead>
+            <tr class="border-b border-border bg-muted/40">
+              <th class="p-6 text-sm font-semibold text-muted-foreground">Capabilities</th>
+              <th class="p-6 text-sm font-bold text-primary bg-primary/5 border-x border-primary/20">Proposal.biz</th>
+              <th class="p-6 text-sm font-semibold text-foreground">Traditional (Word/PDF)</th>
+              <th class="p-6 text-sm font-semibold text-foreground">Other Competitors</th>
+            </tr>
+          </thead>
+
+          {/* Table Body */}
+          <tbody class="divide-y divide-border/60">
+            {comparisonData.map((row) => (
+              <tr class="group hover:bg-muted/10 transition-colors">
+                
+                {/* Feature Name */}
+                <td class="p-6 text-sm font-medium text-foreground">
+                  {row.feature}
+                </td>
+                
+                {/* Proposal.biz (Highlighted Column) */}
+                <td class="p-6 text-sm font-bold text-foreground bg-primary/5 border-x border-primary/20 group-hover:bg-primary/8 transition-colors">
+                  <div class="flex items-center gap-2">
+                    <svg class="h-5 w-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{row.proposalBiz}</span>
+                  </div>
+                </td>
+
+                {/* Traditional (Word/PDF) */}
+                <td class="p-6 text-sm text-muted-foreground">
+                  <div class="flex items-center gap-2">
+                    <svg class="h-4 w-4 text-destructive shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>{row.traditional}</span>
+                  </div>
+                </td>
+
+                {/* Other Competitors */}
+                <td class="p-6 text-sm text-muted-foreground">
+                  <div class="flex items-center gap-2">
+                    <svg class="h-4 w-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>{row.competitors}</span>
+                  </div>
+                </td>
+
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>

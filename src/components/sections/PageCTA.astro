@@ -1,0 +1,61 @@
+---
+interface ButtonConfig {
+  enable: boolean;
+  label: string;
+  link: string;
+}
+
+interface Props {
+  size?: 'small' | 'large' | string;
+  title: string;
+  description: string;
+  button?: ButtonConfig;
+  secondary_link?: ButtonConfig;
+}
+
+const { size = 'large', title, description, button, secondary_link } = Astro.props;
+
+const pyClass = size === 'small' ? 'py-16 md:py-20' : 'py-24 lg:py-32';
+---
+
+<section class={`${pyClass} bg-linear-to-b from-background to-muted/20 border-b border-border relative overflow-hidden`}>
+  {/* Light subtle visual glow in the background */}
+  <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-primary/5 blur-3xl"></div>
+
+  <div class="container mx-auto px-4 relative z-10 text-center">
+    <div class="mx-auto max-w-3xl space-y-6">
+      
+      {/* Title */}
+      <h2 class="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:leading-tight">
+        <Fragment set:html={title} />
+      </h2>
+
+      {/* Description */}
+      <p class="mx-auto max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+        {description}
+      </p>
+
+      {/* Buttons / Actions */}
+      <div class="pt-6 flex flex-wrap justify-center items-center gap-6">
+        {button && button.enable && (
+          <a
+            href={button.link}
+            class="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/95 hover:scale-[1.02]"
+          >
+            {button.label}
+          </a>
+        )}
+
+        {secondary_link && secondary_link.enable && (
+          <a
+            href={secondary_link.link}
+            class="inline-flex items-center justify-center text-sm font-semibold text-foreground hover:text-primary transition-colors underline underline-offset-4"
+          >
+            {secondary_link.label}
+          </a>
+        )}
+      </div>
+
+    </div>
+  </div>
+</section>
