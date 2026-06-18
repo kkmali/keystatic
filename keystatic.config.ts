@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 import { lucideIcon } from './src/components/KeystaticIconPicker';
 
 const isProd = import.meta.env.PROD;
@@ -407,6 +407,157 @@ export default config({
           { label: 'Page Sections' }
         ),
         content: fields.mdx({ label: 'Content Body' }),
+      },
+    }),
+  },
+  singletons: {
+    site: singleton({
+      label: 'Site Settings',
+      path: 'src/config/site',
+      format: { data: 'json' },
+      schema: {
+        site: fields.object({
+          title: fields.text({ label: 'Title' }),
+          base_url: fields.text({ label: 'Base URL' }),
+          base_path: fields.text({ label: 'Base Path' }),
+          trailing_slash: fields.checkbox({ label: 'Trailing Slash', defaultValue: true }),
+          favicon: fields.text({ label: 'Favicon Path' }),
+          logo: fields.text({ label: 'Logo Path' }),
+          logo_width: fields.text({ label: 'Logo Width' }),
+          logo_height: fields.text({ label: 'Logo Height' }),
+          logo_text: fields.text({ label: 'Logo Text' }),
+        }, { label: 'Site Basic Info' }),
+        settings: fields.object({
+          pagination: fields.integer({ label: 'Pagination' }),
+          summary_length: fields.integer({ label: 'Summary Length' }),
+          blog_folder: fields.text({ label: 'Blog Folder' }),
+        }, { label: 'Settings' }),
+        params: fields.object({
+          contact_form_action: fields.text({ label: 'Contact Form Action' }),
+          footer_description: fields.text({ label: 'Footer Description', multiline: true }),
+          copyright: fields.text({ label: 'Copyright Text' }),
+        }, { label: 'Parameters' }),
+        google_tag_manager: fields.object({
+          enable: fields.checkbox({ label: 'Enable Google Tag Manager', defaultValue: false }),
+          gtm_id: fields.text({ label: 'GTM ID' }),
+        }, { label: 'Google Tag Manager' }),
+        navigation_buttons: fields.object({
+          dashboard: fields.object({
+            label: fields.text({ label: 'Dashboard Button Label' }),
+            link: fields.text({ label: 'Dashboard Button Link' }),
+          }, { label: 'Dashboard Button' }),
+          login: fields.object({
+            label: fields.text({ label: 'Login Button Label' }),
+            link: fields.text({ label: 'Login Button Link' }),
+          }, { label: 'Login Button' }),
+        }, { label: 'Navigation Buttons' }),
+        metadata: fields.object({
+          meta_author: fields.text({ label: 'Meta Author' }),
+          meta_image: fields.text({ label: 'Meta Image' }),
+          meta_description: fields.text({ label: 'Meta Description', multiline: true }),
+        }, { label: 'Metadata' }),
+      },
+    }),
+    menu: singleton({
+      label: 'Menu Settings',
+      path: 'src/config/menu',
+      format: { data: 'json' },
+      schema: {
+        main: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name' }),
+            url: fields.text({ label: 'URL' }),
+            dropdownItems: fields.array(
+              fields.object({
+                title: fields.text({ label: 'Title' }),
+                href: fields.text({ label: 'Link' }),
+                description: fields.text({ label: 'Description', multiline: true }),
+              }),
+              {
+                label: 'Dropdown Items',
+                itemLabel: (item) => item.fields.title.value || 'Dropdown Item',
+              }
+            ),
+          }),
+          {
+            label: 'Main Menu',
+            itemLabel: (item) => item.fields.name.value || 'Menu Item',
+          }
+        ),
+        footer_menu: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name' }),
+            url: fields.text({ label: 'URL' }),
+          }),
+          {
+            label: 'Footer Menu',
+            itemLabel: (item) => item.fields.name.value || 'Menu Item',
+          }
+        ),
+        footer_quick_links: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name' }),
+            url: fields.text({ label: 'URL' }),
+          }),
+          {
+            label: 'Footer Quick Links',
+            itemLabel: (item) => item.fields.name.value || 'Link Item',
+          }
+        ),
+      },
+    }),
+    social: singleton({
+      label: 'Social Settings',
+      path: 'src/config/social',
+      format: { data: 'json' },
+      schema: {
+        main: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name' }),
+            icon: fields.text({ label: 'Icon (e.g. FaLinkedin, FaXTwitter)' }),
+            link: fields.text({ label: 'Link' }),
+          }),
+          {
+            label: 'Social Links',
+            itemLabel: (item) => item.fields.name.value || 'Social Link',
+          }
+        ),
+      },
+    }),
+    theme: singleton({
+      label: 'Theme Settings',
+      path: 'src/config/theme',
+      format: { data: 'json' },
+      schema: {
+        colors: fields.object({
+          default: fields.object({
+            theme_color: fields.object({
+              primary: fields.text({ label: 'Primary' }),
+              secondary: fields.text({ label: 'Secondary' }),
+              tertiary: fields.text({ label: 'Tertiary' }),
+              body: fields.text({ label: 'Body' }),
+              border: fields.text({ label: 'Border' }),
+              light: fields.text({ label: 'Light' }),
+            }, { label: 'Theme Colors (oklch or hex/rgb)' }),
+            text_color: fields.object({
+              text: fields.text({ label: 'Text' }),
+              'text-dark': fields.text({ label: 'Text Dark' }),
+              'text-light': fields.text({ label: 'Text Light' }),
+            }, { label: 'Text Colors' }),
+          }, { label: 'Default' }),
+        }, { label: 'Colors' }),
+        fonts: fields.object({
+          font_family: fields.object({
+            primary: fields.text({ label: 'Primary Font' }),
+            primary_type: fields.text({ label: 'Primary Font Type (e.g. sans-serif)' }),
+            secondary: fields.text({ label: 'Secondary Font' }),
+            secondary_type: fields.text({ label: 'Secondary Font Type (e.g. sans-serif)' }),
+          }, { label: 'Font Family' }),
+          font_size: fields.object({
+            base: fields.text({ label: 'Base Font Size' }),
+            scale: fields.text({ label: 'Font Scale' }),
+          }, { label: 'Font Size' }),
+        }, { label: 'Fonts' }),
       },
     }),
   },
