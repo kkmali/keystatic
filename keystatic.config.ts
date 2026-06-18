@@ -560,5 +560,21 @@ export default config({
         }, { label: 'Fonts' }),
       },
     }),
+    deploy: singleton({
+      label: 'Deploy Settings',
+      path: 'src/config/deploy',
+      format: { data: 'json' },
+      schema: {
+        staging: fields.object({
+          trigger: fields.text({ label: 'Trigger Number', description: 'Increase this number by 1 to push your changes to the staging website for review.' }),
+          _note: fields.text({ label: 'Note' }),
+        }, { label: 'Staging' }),
+        production: fields.object({
+          trigger: fields.text({ label: 'Trigger Number', description: 'Increase this number by 1 to publish your changes live. Make sure you have reviewed the staging website first.' }),
+          _note: fields.text({ label: 'Note' }),
+        }, { label: 'Production' }),
+        draft: fields.checkbox({ label: 'Draft', defaultValue: false }),
+      },
+    }),
   },
 });
