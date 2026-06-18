@@ -1,9 +1,19 @@
 import { config, fields, collection } from '@keystatic/core';
 
+const isProd = import.meta.env.PROD;
+
 export default config({
-  storage: {
-    kind: 'local',
-  },
+  storage: isProd
+    ? {
+        kind: 'github',
+        repo: {
+          owner: 'kkmali',
+          name: 'keystatic',
+        },
+      }
+    : {
+        kind: 'local',
+      },
   collections: {
     blog: collection({
       label: 'Blog Posts',
@@ -43,18 +53,12 @@ export default config({
                 title: fields.text({ label: 'Title' }),
                 description: fields.text({ label: 'Description', multiline: true }),
                 button_primary: fields.object({
-                  label: 'Primary Button',
-                  schema: {
-                    label: fields.text({ label: 'Label' }),
-                    link: fields.text({ label: 'Link' }),
-                  },
+                  label: fields.text({ label: 'Label' }),
+                  link: fields.text({ label: 'Link' }),
                 }),
                 button_secondary: fields.object({
-                  label: 'Secondary Button',
-                  schema: {
-                    label: fields.text({ label: 'Label' }),
-                    link: fields.text({ label: 'Link' }),
-                  },
+                  label: fields.text({ label: 'Label' }),
+                  link: fields.text({ label: 'Link' }),
                 }),
                 image: fields.text({ label: 'Image Path' }),
                 features: fields.array(
@@ -161,11 +165,8 @@ export default config({
                 title: fields.text({ label: 'Title' }),
                 description: fields.text({ label: 'Description', multiline: true }),
                 button_primary: fields.object({
-                  label: 'Primary Button',
-                  schema: {
-                    label: fields.text({ label: 'Label' }),
-                    link: fields.text({ label: 'Link' }),
-                  },
+                  label: fields.text({ label: 'Label' }),
+                  link: fields.text({ label: 'Link' }),
                 }),
                 items: fields.array(
                   fields.object({
@@ -232,11 +233,8 @@ export default config({
                 description: fields.text({ label: 'Description', multiline: true }),
                 officeTitle: fields.text({ label: 'Office Title' }),
                 officeAddress: fields.object({
-                  label: 'Office Address',
-                  schema: {
-                    line1: fields.text({ label: 'Address Line 1' }),
-                    line2: fields.text({ label: 'Address Line 2' }),
-                  },
+                  line1: fields.text({ label: 'Address Line 1' }),
+                  line2: fields.text({ label: 'Address Line 2' }),
                 }),
                 emailTitle: fields.text({ label: 'Email Title' }),
                 emails: fields.array(
@@ -279,11 +277,8 @@ export default config({
                 leftTitle: fields.text({ label: 'Left Title' }),
                 leftParagraphs: fields.array(fields.text({ label: 'Paragraph' }), { label: 'Left Paragraphs' }),
                 leftCtaButton: fields.object({
-                  label: 'Left CTA Button',
-                  schema: {
-                    href: fields.text({ label: 'Link' }),
-                    text: fields.text({ label: 'Text' }),
-                  },
+                  href: fields.text({ label: 'Link' }),
+                  text: fields.text({ label: 'Text' }),
                 }),
                 leftImages: fields.array(
                   fields.object({
@@ -350,18 +345,12 @@ export default config({
                 title: fields.text({ label: 'Title' }),
                 description: fields.text({ label: 'Description', multiline: true }),
                 button_primary: fields.object({
-                  label: 'Primary Button',
-                  schema: {
-                    label: fields.text({ label: 'Label' }),
-                    link: fields.text({ label: 'Link' }),
-                  },
+                  label: fields.text({ label: 'Label' }),
+                  link: fields.text({ label: 'Link' }),
                 }),
                 button_secondary: fields.object({
-                  label: 'Secondary Button',
-                  schema: {
-                    label: fields.text({ label: 'Label' }),
-                    link: fields.text({ label: 'Link' }),
-                  },
+                  label: fields.text({ label: 'Label' }),
+                  link: fields.text({ label: 'Link' }),
                 }),
               }),
             },

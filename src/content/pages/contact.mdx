@@ -3,28 +3,29 @@ layout: ../../layouts/DefaultLayout.astro
 title: Contact Us
 description: Get in touch with the Mainline team.
 draft: false
-
 sections:
-  - type: contact
-    enable: true
-    title: Contact us
-    description: Hopefully this form gets through our spam filters.
-    officeTitle: Corporate office
-    officeAddress:
-      line1: 1 Carlsberg Close
-      line2: 1260 Hillview, Australia
-    emailTitle: Email us
-    emails:
-      - label: Careers
-        email: careers@streamline.com
-      - label: Press
-        email: press@streamline.com
-    socialTitle: Follow us
-    socials:
-      - platform: facebook
-        href: "#"
-      - platform: twitter
-        href: "#"
-      - platform: linkedin
-        href: "#"
+  - discriminant: contact
+    value:
+      enable: true
+      title: Contact us
+      description: Hopefully this form gets through our spam filters.
+      officeTitle: Corporate office
+      officeAddress:
+        line1: 1 Carlsberg Close
+        line2: 1260 Hillview, Australia
+      emailTitle: Email us
+      emails:
+        - label: Careers
+          email: careers@streamline.com
+        - label: Press
+          email: press@streamline.com
+      socialTitle: Follow us
+      socials:
+        - platform: facebook
+          href: "#"
+        - platform: twitter
+          href: "#"
+        - platform: linkedin
+          href: "#"
 ---
+

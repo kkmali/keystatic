@@ -3,61 +3,72 @@ layout: ../../layouts/DefaultLayout.astro
 title: FAQ
 description: Frequently asked questions about Mainline.
 draft: false
-
 sections:
-  - type: faq
-    enable: true
-    title: Got Questions?
-    description: 'If you can''t find what you''re looking for, <a href="/contact" class="underline underline-offset-4">get in touch</a>.'
-    categories:
-      - title: Support
-        questions:
-          - question: "How do I update my account without breaking my laptop?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-          - question: "Is support free, or do I need to Google everything?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-          - question: "Are you going to be subsumed by AI?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-      - title: Your account
-        questions:
-          - question: "Is support free, or do I need to Google everything?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-          - question: "Are you going to be subsumed by AI?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-      - title: Other questions
-        questions:
-          - question: "Is support free, or do I need to Google everything?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-          - question: "Are you going to be subsumed by AI?"
-            answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptates deserunt officia temporibus dignissimos."
-
-  - type: testimonials
-    enable: true
-    title: Trusted by product builders
-    description: "Mainline is built on the habits that make the best product teams successful: staying focused, moving quickly, and always aiming for high-quality work."
-    dashedLineClassName: hidden
-    button_primary:
-      label: Read our Customer Stories
-      link: "#"
-    items:
-      - quote: "We're misusing Mainline as a CRM and it still works!"
-        author: Amy Chase
-        role: PM
-        company: Mercury Finance
-        image: /testimonials/amy-chase.webp
-      - quote: "I was able to replace 80% of my team with Mainline bots."
-        author: Jonas Kotara
-        role: Lead Engineer
-        company: Mercury Finance
-        image: /testimonials/jonas-kotara.webp
-      - quote: "Founder Mode is hard enough without having a really nice PM app."
-        author: Kevin Yam
-        role: Founder
-        company: Mercury Finance
-        image: /testimonials/kevin-yam.webp
-      - quote: "I can use the tool as a substitute from my PM."
-        author: Kundo Marta
-        role: Founder
-        company: Mercury Finance
-        image: /testimonials/kundo-marta.webp
+  - discriminant: faq
+    value:
+      enable: true
+      title: Got Questions?
+      description: If you can't find what you're looking for, <a href="/contact"
+        class="underline underline-offset-4">get in touch</a>.
+      categories:
+        - title: Support
+          questions:
+            - question: How do I update my account without breaking my laptop?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+            - question: Is support free, or do I need to Google everything?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+            - question: Are you going to be subsumed by AI?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+        - title: Your account
+          questions:
+            - question: Is support free, or do I need to Google everything?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+            - question: Are you going to be subsumed by AI?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+        - title: Other questions
+          questions:
+            - question: Is support free, or do I need to Google everything?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+            - question: Are you going to be subsumed by AI?
+              answer: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+                voluptates deserunt officia temporibus dignissimos.
+  - discriminant: testimonials
+    value:
+      enable: true
+      title: Trusted by product builders
+      description: "Mainline is built on the habits that make the best product teams
+        successful: staying focused, moving quickly, and always aiming for
+        high-quality work."
+      dashedLineClassName: hidden
+      button_primary:
+        label: Read our Customer Stories
+        link: "#"
+      items:
+        - quote: We're misusing Mainline as a CRM and it still works!
+          author: Amy Chase
+          role: PM
+          company: Mercury Finance
+          image: /testimonials/amy-chase.webp
+        - quote: I was able to replace 80% of my team with Mainline bots.
+          author: Jonas Kotara
+          role: Lead Engineer
+          company: Mercury Finance
+          image: /testimonials/jonas-kotara.webp
+        - quote: Founder Mode is hard enough without having a really nice PM app.
+          author: Kevin Yam
+          role: Founder
+          company: Mercury Finance
+          image: /testimonials/kevin-yam.webp
+        - quote: I can use the tool as a substitute from my PM.
+          author: Kundo Marta
+          role: Founder
+          company: Mercury Finance
+          image: /testimonials/kundo-marta.webp
 ---
+

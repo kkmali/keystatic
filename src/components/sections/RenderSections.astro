@@ -39,8 +39,19 @@ interface Props {
 
 const { sections = [] } = Astro.props;
 
+// Normalize sections to support both flat { type, ... } and nested { discriminant, value } formats
+const normalizedSections = sections.map((s) => {
+  if (s && typeof s === 'object' && 'discriminant' in s && 'value' in s) {
+    return {
+      type: s.discriminant,
+      ...(s.value || {}),
+    };
+  }
+  return s;
+});
+
 // Filter out disabled sections
-const activeSections = sections.filter((s) => s.enable !== false);
+const activeSections = normalizedSections.filter((s) => s.enable !== false);
 
 // Identify groupings
 const hasHomeTop = activeSections.some((s) =>
