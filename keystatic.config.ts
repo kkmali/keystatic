@@ -1,4 +1,5 @@
 import { config, fields, collection } from '@keystatic/core';
+import { lucideIcon } from './src/components/KeystaticIconPicker';
 
 const isProd = import.meta.env.PROD;
 
@@ -65,7 +66,7 @@ export default config({
                   fields.object({
                     title: fields.text({ label: 'Title' }),
                     description: fields.text({ label: 'Description', multiline: true }),
-                    icon: fields.text({ label: 'Icon Name (e.g. lu:CircleDot)' }),
+                    icon: lucideIcon({ label: 'Icon Name (e.g. lu:CircleDot)', defaultValue: 'lu:CircleDot' }),
                   }),
                   { label: 'Features' }
                 ),
