@@ -153,8 +153,8 @@ export default config({
                       fields.object({
                         src: fields.image({
                           label: 'Image',
-                          directory: 'public/resource-allocation',
-                          publicPath: '/resource-allocation/',
+                          directory: 'public',
+                          publicPath: '/',
                         }),
                         alt: fields.text({ label: 'Alt Text' }),
                         width: fields.integer({ label: 'Width' }),
@@ -175,8 +175,8 @@ export default config({
                       fields.object({
                         src: fields.image({
                           label: 'Image',
-                          directory: 'public/resource-allocation',
-                          publicPath: '/resource-allocation/',
+                          directory: 'public',
+                          publicPath: '/',
                         }),
                         alt: fields.text({ label: 'Alt Text' }),
                         width: fields.integer({ label: 'Width' }),
