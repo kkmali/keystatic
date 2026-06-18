@@ -12,9 +12,10 @@ type FormFieldInputProps<Value> = {
 const ALL_LUCIDE_ICONS = Object.keys(LucideIcons).filter((key) => {
   return (
     /^[A-Z]/.test(key) &&
-    typeof (LucideIcons as any)[key] === "function" &&
+    (typeof (LucideIcons as any)[key] === "function" || typeof (LucideIcons as any)[key] === "object") &&
     key !== "LucideIcon" &&
-    key !== "createReactComponent"
+    key !== "createReactComponent" &&
+    !key.endsWith("Icon")
   );
 });
 
@@ -50,20 +51,6 @@ const IconPickerInput: React.FC<IconPickerInputProps> = ({ value, onChange, labe
     return () => observer.disconnect();
   }, []);
 
-  // Handle click outside to close the dialog
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
 
   // Handle Escape key to close the dialog
   useEffect(() => {
@@ -186,23 +173,25 @@ const IconPickerInput: React.FC<IconPickerInputProps> = ({ value, onChange, labe
       {/* Popup Dialog Overlay */}
       {isOpen && (
         <div
+          onClick={() => setIsOpen(false)}
           style={{
             position: "fixed",
             top: 0,
             left: 0,
-            width: "100vw",
-            height: "100vh",
+            right: 0,
+            bottom: 0,
             backgroundColor: colors.backdrop,
             backdropFilter: "blur(4px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            zIndex: 99999,
+            zIndex: 999999,
           }}
         >
           {/* Modal Panel Container */}
           <div
             ref={modalRef}
+            onClick={(e) => e.stopPropagation()}
             style={{
               backgroundColor: colors.bg,
               color: colors.text,

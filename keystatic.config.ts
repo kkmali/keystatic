@@ -27,8 +27,16 @@ export default config({
         description: fields.text({ label: 'Description', multiline: true }),
         pubDate: fields.date({ label: 'Publication Date' }),
         updatedDate: fields.date({ label: 'Updated Date' }),
-        image: fields.text({ label: 'Image URL' }),
-        authorImage: fields.text({ label: 'Author Image URL' }),
+        image: fields.image({
+          label: 'Image',
+          directory: 'public/images/blog',
+          publicPath: '/images/blog/',
+        }),
+        authorImage: fields.image({
+          label: 'Author Image',
+          directory: 'public/avatar',
+          publicPath: '/avatar/',
+        }),
         authorName: fields.text({ label: 'Author Name' }),
         content: fields.mdx({ label: 'Content' }),
       },
@@ -61,7 +69,11 @@ export default config({
                   label: fields.text({ label: 'Label' }),
                   link: fields.text({ label: 'Link' }),
                 }),
-                image: fields.text({ label: 'Image Path' }),
+                image: fields.image({
+                  label: 'Image',
+                  directory: 'public',
+                  publicPath: '/',
+                }),
                 features: fields.array(
                   fields.object({
                     title: fields.text({ label: 'Title' }),
@@ -81,7 +93,11 @@ export default config({
                 topRowCompanies: fields.array(
                   fields.object({
                     name: fields.text({ label: 'Company Name' }),
-                    logo: fields.text({ label: 'Logo Path' }),
+                    logo: fields.image({
+                      label: 'Logo',
+                      directory: 'public/logos',
+                      publicPath: '/logos/',
+                    }),
                     width: fields.integer({ label: 'Width' }),
                     height: fields.integer({ label: 'Height' }),
                     href: fields.text({ label: 'Link' }),
@@ -91,7 +107,11 @@ export default config({
                 bottomRowCompanies: fields.array(
                   fields.object({
                     name: fields.text({ label: 'Company Name' }),
-                    logo: fields.text({ label: 'Logo Path' }),
+                    logo: fields.image({
+                      label: 'Logo',
+                      directory: 'public/logos',
+                      publicPath: '/logos/',
+                    }),
                     width: fields.integer({ label: 'Width' }),
                     height: fields.integer({ label: 'Height' }),
                     href: fields.text({ label: 'Link' }),
@@ -110,7 +130,11 @@ export default config({
                 items: fields.array(
                   fields.object({
                     title: fields.text({ label: 'Title' }),
-                    image: fields.text({ label: 'Image Path' }),
+                    image: fields.image({
+                      label: 'Image',
+                      directory: 'public/features',
+                      publicPath: '/features/',
+                    }),
                   }),
                   { label: 'Features Items' }
                 ),
@@ -127,7 +151,11 @@ export default config({
                     description: fields.text({ label: 'Description', multiline: true }),
                     images: fields.array(
                       fields.object({
-                        src: fields.text({ label: 'Image Path' }),
+                        src: fields.image({
+                          label: 'Image',
+                          directory: 'public/resource-allocation',
+                          publicPath: '/resource-allocation/',
+                        }),
                         alt: fields.text({ label: 'Alt Text' }),
                         width: fields.integer({ label: 'Width' }),
                         height: fields.integer({ label: 'Height' }),
@@ -145,7 +173,11 @@ export default config({
                     description: fields.text({ label: 'Description', multiline: true }),
                     images: fields.array(
                       fields.object({
-                        src: fields.text({ label: 'Image Path' }),
+                        src: fields.image({
+                          label: 'Image',
+                          directory: 'public/resource-allocation',
+                          publicPath: '/resource-allocation/',
+                        }),
                         alt: fields.text({ label: 'Alt Text' }),
                         width: fields.integer({ label: 'Width' }),
                         height: fields.integer({ label: 'Height' }),
@@ -175,7 +207,11 @@ export default config({
                     author: fields.text({ label: 'Author Name' }),
                     role: fields.text({ label: 'Role' }),
                     company: fields.text({ label: 'Company' }),
-                    image: fields.text({ label: 'Image Path' }),
+                    image: fields.image({
+                      label: 'Image',
+                      directory: 'public/testimonials',
+                      publicPath: '/testimonials/',
+                    }),
                   }),
                   { label: 'Testimonial Items' }
                 ),
@@ -283,7 +319,11 @@ export default config({
                 }),
                 leftImages: fields.array(
                   fields.object({
-                    src: fields.text({ label: 'Image Path' }),
+                    src: fields.image({
+                      label: 'Image',
+                      directory: 'public/about',
+                      publicPath: '/about/',
+                    }),
                     alt: fields.text({ label: 'Alt' }),
                   }),
                   { label: 'Left Images' }
@@ -291,7 +331,11 @@ export default config({
                 rightParagraphs: fields.array(fields.text({ label: 'Paragraph' }), { label: 'Right Paragraphs' }),
                 rightImages: fields.array(
                   fields.object({
-                    src: fields.text({ label: 'Image Path' }),
+                    src: fields.image({
+                      label: 'Image',
+                      directory: 'public/about',
+                      publicPath: '/about/',
+                    }),
                     alt: fields.text({ label: 'Alt' }),
                   }),
                   { label: 'Right Images' }
@@ -307,7 +351,11 @@ export default config({
                   fields.object({
                     name: fields.text({ label: 'Name' }),
                     company: fields.text({ label: 'Company' }),
-                    image: fields.text({ label: 'Image Path' }),
+                    image: fields.image({
+                      label: 'Image',
+                      directory: 'public/investors',
+                      publicPath: '/investors/',
+                    }),
                   }),
                   { label: 'Investors List' }
                 ),
